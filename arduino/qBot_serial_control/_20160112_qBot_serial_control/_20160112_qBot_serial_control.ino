@@ -8,7 +8,8 @@
 String inString = "";
 boolean stringComplete0 = false;
 boolean stringComplete1 = false;
-byte startMessage[] = {148, 6, 7, 9, 10, 11, 12, 25};
+const char setSafeMode[] = {char(131)};
+const char setStream[] = {char(148), char(6), char(7), char(9), char(10), char(11), char(12), char(25)};
 
 void setup() {
   // put your setup code here, to run once:
@@ -20,8 +21,9 @@ void setup() {
  //   delay(1);
  // }
 
-  Serial1.write(startMessage, 8);
-
+  Serial1.write(setSafeMode, 1);
+  delay(15);
+  Serial1.write(setStream, 8);
 
 }
 
@@ -34,7 +36,7 @@ void loop() {
       int inChar = Serial.read();
 
       if (isDigit(inChar)) {
-        inString += (char)inChar;
+        inString += char(inChar);
       }
 
       if (inChar == '\n') {
@@ -56,7 +58,7 @@ void loop() {
     int inChar = Serial1.read();
 
     if (isDigit(inChar)) {
-      inString += (char)inChar;
+      inString += char(inChar);
     }
 
     if (inChar == '\n') {
