@@ -8,8 +8,6 @@
 String inString = "";
 boolean stringComplete0 = false;
 boolean stringComplete1 = false;
-const char setSafeMode[] = {char(131)};
-const char setStream[] = {char(148), char(6), char(7), char(9), char(10), char(11), char(12), char(25)};
 
 void setup() {
   // put your setup code here, to run once:
@@ -21,55 +19,14 @@ void setup() {
  //   delay(1);
  // }
 
-  Serial1.write(setSafeMode, 1);
-  delay(15);
-  Serial1.write(setStream, 8);
-
+  Serial1.write(char(128));Serial1.write(char(132));
+  Serial1.write(char(139));Serial1.write(char(2));
+  Serial1.write(char(0)); Serial1.write(char(0));
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (Serial.available() > 0) {
-    while (!stringComplete0) {
-
-      int inChar = Serial.read();
-
-      if (isDigit(inChar)) {
-        inString += char(inChar);
-      }
-
-      if (inChar == '\n') {
-        stringComplete0 == true;
-      }
-    }
-  }
-
-  Serial1.println(inString);
-  stringComplete0 = false;
-  inString = "";
-
-  Serial1.flush();
-  delay(15);
-
-  if(Serial1.available()>0){
-  while (!stringComplete1) {
-
-    int inChar = Serial1.read();
-
-    if (isDigit(inChar)) {
-      inString += char(inChar);
-    }
-
-    if (inChar == '\n') {
-      stringComplete1 = true;
-    }
-  }
-  }
-  
-  Serial.println(inString);
-  stringComplete1 = false;
-  inString = "";
 
 }
 
